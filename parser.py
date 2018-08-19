@@ -4,12 +4,14 @@ from sqlalchemy.ext.declarative import declarative_base
 
 # connect to db
 Base = declarative_base()
-engine =create_engine("postgresql+psycopg2://postgres:qwerty@localhost:5432/employee")
+engine = create_engine("postgresql+psycopg2://postgres:qwerty@localhost:5432/employee")
 metadata = MetaData(bind=engine)
+
 
 # get a class of our db
 class Employee(Base):
     __table__ = Table('employee', metadata, autoload=True)
+
 
 # get session
 session = create_session(bind=engine)
@@ -26,5 +28,7 @@ for department in dep:
     for salary in salarys:
         persons = session.query(Employee).filter_by(salary=salarys[0])
         for person in persons:
-            print('in %s department %s have a biggest salary: %s'%(department,person.name,salary[0]))
+            print('in %s department %s have a biggest salary: %s' % (department, person.name, salary[0]))
 input()
+
+# Возможно это можно сделать красивее, быстрее и т.д.
